@@ -1,5 +1,3 @@
-
-
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,6 +7,7 @@ using Microsoft.AspNet.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using Microsoft.Data.Entity;
 
 namespace QuickWiki
 {
@@ -30,6 +29,11 @@ namespace QuickWiki
         {
             // Add framework services.
             services.AddMvc();
+            services.AddEntityFramework()
+                .AddNpgsql()
+                .AddDbContext<Models.WikiPageDbContext>(options => {
+                        options.UseNpgsql(Configuration["Data:DefaultConnection:Connectionstring"]);
+                    });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
