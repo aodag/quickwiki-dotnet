@@ -1,0 +1,1 @@
+web: dnx -p src/QuickWiki web --server.urls=http://127.0.0.1:$PORT
